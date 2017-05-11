@@ -1,7 +1,7 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
 const app = function(){
   return <div>Hi!</div>;
 }
 
-React.render(app);
+ReactDOM.render(app);
