@@ -7,13 +7,24 @@ import VideoDetail from './components/video_details'
 
 const API_KEY = 'AIzaSyDOZVmlJpsTZy9ioUo3yXILgvbPH7cO3d4';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { videos: [] };
-    YTSearch({key: API_KEY, term: 'surfboards'}, videos => {
-        this.setState({ videos }); //resolves to {'videos' : videos}, works when key and value are equal
+
+    this.state = {
+      videos: [],
+      selectedVideo: null,
+     };
+
+    YTSearch({
+      key: API_KEY,
+      term: 'surfboards'
+    },
+    videos => {
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
     });
   }
 
@@ -21,8 +32,10 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
-        <VideoList videos={this.state.videos} />
+        <VideoDetail video={this.state.selectedVideo}/>
+        <VideoList
+          onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
+          videos={this.state.videos} />
       </div>
     );
   }
